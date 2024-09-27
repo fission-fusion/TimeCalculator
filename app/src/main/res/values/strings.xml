@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TimeCalculator</string>
+    <string name="text_program_title_calculator">Калькулятор времени</string>
+    <string name="result">Результат</string>
+    <string name="diff">-</string>
+    <string name="sum">+</string>
+    <string name="enter_value">Введите значение</string>
+</resources>
