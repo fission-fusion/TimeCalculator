@@ -1,16 +1,22 @@
 package com.example.timecalculator
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var toolbarMain: Toolbar
     private lateinit var textInputFirst: EditText
     private lateinit var textInputSecond: EditText
     private lateinit var textResult: TextView
@@ -26,16 +32,51 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        toolbarMain = findViewById(R.id.toolbarMain)
+        setSupportActionBar(toolbarMain)
+        title = "Калькулятор времени"
+        toolbarMain.subtitle = "Версия 1"
+        toolbarMain.setLogo(R.drawable.ic_calculate)
 
         textInputFirst = findViewById(R.id.firstOperandET)
         textInputSecond = findViewById(R.id.secondOperandET)
         textResult = findViewById(R.id.resultTV)
-        buttonSum = findViewById(R.id.sumBTN)
-        buttonDiff = findViewById(R.id.diffBTN)
+        buttonSum = findViewById(R.id.buttonSumBTN)
+        buttonDiff = findViewById(R.id.buttonDiffBTN)
 
         buttonSum.setOnClickListener { onClick(it) }
         buttonDiff.setOnClickListener { onClick(it) }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.resetMenuMain -> {
+                textInputFirst.text.clear()
+                textInputSecond.text.clear()
+                textResult.text = "Результат"
+                textResult.setTextColor(Color.BLACK)
+                Toast.makeText(
+                    applicationContext,
+                    "Данные очищены",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.exitMenuMain -> {
+                Toast.makeText(
+                    applicationContext,
+                    "Приложение закрыто",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun timeToSecond(view: EditText): Int? {
@@ -84,15 +125,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
+
         if (textInputFirst.text.isEmpty() || textInputSecond.text.isEmpty()) {
             return
         }
 
-        var result = when (view.id) {
-            R.id.sumBTN -> convertToText(sumOfTime(textInputFirst, textInputSecond))
-            R.id.diffBTN -> convertToText(diffOfTime(textInputFirst, textInputSecond))
+        when (view.id) {
+            R.id.buttonSumBTN -> {
+                textResult.text = convertToText(sumOfTime(textInputFirst, textInputSecond))
+                Toast.makeText(
+                    applicationContext,
+                    "Результат: ${textResult.text}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            R.id.buttonDiffBTN -> {
+                textResult.text = convertToText(diffOfTime(textInputFirst, textInputSecond))
+                Toast.makeText(
+                    applicationContext,
+                    "Результат: ${textResult.text}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             else -> ""
         }
-        textResult.text = result
+
+        textResult.setTextColor(Color.parseColor("#8B0000"))
     }
 }

@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorBachground">#8B6CBF</color>
     <color name="colortextViewBackground">#C1A4F2</color>
+    <color name="colorToolbar">#006400</color>
+    <color name="colorButton">#008000</color>
+    <color name="colorTextResult">#8B0000</color>
 </resources>

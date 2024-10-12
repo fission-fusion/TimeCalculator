@@ -5,4 +5,6 @@
     <string name="diff">-</string>
     <string name="sum">+</string>
     <string name="enter_value">Введите значение</string>
+    <string name="textReset">Reset</string>
+    <string name="textExit">Exit</string>
 </resources>
