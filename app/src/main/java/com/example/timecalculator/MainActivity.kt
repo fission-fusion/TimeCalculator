@@ -80,13 +80,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun timeToSecond(view: EditText): Int? {
-        val matchResult = "(?:(?:(\\d+)h)?(\\d+)m)?(\\d+)s".toRegex().find(view.text)
+        val matchResult = "(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?".toRegex().find(view.text)
         val hour = matchResult?.groups?.get(1)?.value?.toInt()
         val min = matchResult?.groups?.get(2)?.value?.toInt()
         val sec = matchResult?.groups?.get(3)?.value?.toInt()
-        return if (sec != null) {
-            (hour ?: 0) * 3600 + (min ?: 0) * 60 + sec
-        } else null
+        return (hour ?: 0) * 3600 + (min ?: 0) * 60 + (sec ?: 0)
     }
 
     fun sumOfTime(firstTimeText: EditText, secondTimeText: EditText): Int {
